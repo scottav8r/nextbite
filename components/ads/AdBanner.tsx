@@ -17,7 +17,8 @@ export function AdBanner({ cuisines = [], occasions = [], city }: AdBannerProps)
       const supabase = createClient()
       const now = new Date().toISOString()
 
-      const { data } = await supabase
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data } = await (supabase as any)
         .from('ads')
         .select('*')
         .eq('is_active', true)
@@ -28,16 +29,16 @@ export function AdBanner({ cuisines = [], occasions = [], city }: AdBannerProps)
       if (!data?.length) return null
 
       // Client-side targeting: find best matching ad
-      const scored = data.map((ad) => {
+      const scored = data.map((ad: Record<string, unknown>) => {
         let score = 0
-        if (ad.target_cuisines?.some((c: string) => cuisines.includes(c))) score += 3
-        if (ad.target_occasions?.some((o: string) => occasions.includes(o))) score += 2
-        if (ad.target_city && city && ad.target_city.toLowerCase() === city.toLowerCase()) score += 2
-        if (!ad.target_cuisines && !ad.target_occasions && !ad.target_city) score += 1 // generic
+        if ((ad.target_cuisines as string[] | null)?.some((c: string) => cuisines.includes(c))) score += 3
+        if ((ad.target_occasions as string[] | null)?.some((o: string) => occasions.includes(o))) score += 2
+        if (ad.target_city && city && (ad.target_city as string).toLowerCase() === city.toLowerCase()) score += 2
+        if (!ad.target_cuisines && !ad.target_occasions && !ad.target_city) score += 1
         return { ad, score }
       })
 
-      const best = scored.sort((a, b) => b.score - a.score)[0]
+      const best = scored.sort((a: { score: number }, b: { score: number }) => b.score - a.score)[0]
       return best?.score > 0 ? best.ad : null
     },
     staleTime: 5 * 60 * 1000,

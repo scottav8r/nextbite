@@ -30,7 +30,7 @@ export function useWishes(sortBy: 'priority' | 'date_added' | 'target_date' = 'p
       const { data, error } = await query
       if (error) throw error
 
-      const wishes = (data ?? []) as Wish[]
+      const wishes = (data ?? []) as unknown as Wish[]
 
       // Client-side priority sort (High > Medium > Low)
       if (sortBy === 'priority') {
@@ -84,7 +84,7 @@ export function useAddWish() {
         .single()
 
       if (error) throw error
-      return data as Wish
+      return data as unknown as Wish
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['wishes'] })
@@ -116,7 +116,7 @@ export function useUpdateWish() {
         .select()
         .single()
       if (error) throw error
-      return data as Wish
+      return data as unknown as Wish
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['wishes'] })

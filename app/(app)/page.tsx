@@ -76,7 +76,7 @@ export default function HomePage() {
         .select('*')
         .order('created_at', { ascending: true })
         .limit(4)
-      return (data ?? []) as FilterPreset[]
+      return (data ?? []) as unknown as FilterPreset[]
     },
   })
 

@@ -23,7 +23,8 @@ function delay(ms: number) {
 }
 
 async function processItem(item: OfflineQueueItem): Promise<void> {
-  const supabase = createClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createClient() as any
 
   switch (item.type) {
     case 'create_memory': {

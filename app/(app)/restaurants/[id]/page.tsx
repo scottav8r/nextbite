@@ -32,7 +32,7 @@ export default function RestaurantDetailPage() {
         .eq('restaurant_id', id)
         .order('visit_date', { ascending: false })
       if (error) throw error
-      return (data ?? []) as Memory[]
+      return (data ?? []) as unknown as Memory[]
     },
     enabled: !!id,
   })

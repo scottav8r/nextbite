@@ -49,7 +49,9 @@ export default function ProfilePage() {
     setSaving(true)
     const supabase = createClient()
 
-    const { error } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
+    const { error } = await sb
       .from('users')
       .update({
         display_name: form.display_name || null,

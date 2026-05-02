@@ -25,7 +25,7 @@ export default function MemoryDetailPage() {
         .eq('id', id)
         .single()
       if (error) throw error
-      return data as Memory
+      return data as unknown as Memory
     },
     enabled: !!id,
   })

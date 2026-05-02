@@ -52,7 +52,7 @@ export function useMemories(filters?: {
 
       const { data, error } = await query
       if (error) throw error
-      return (data ?? []) as Memory[]
+      return (data ?? []) as unknown as Memory[]
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) =>
@@ -72,14 +72,15 @@ export function useCreateMemory() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('Not authenticated')
 
-      const { data, error } = await supabase
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data, error } = await (supabase as any)
         .from('memories')
         .insert({ ...payload, user_id: user.id })
         .select()
         .single()
 
       if (error) throw error
-      return data as Memory
+      return data as unknown as Memory
     },
 
     onMutate: async (newMemory) => {
