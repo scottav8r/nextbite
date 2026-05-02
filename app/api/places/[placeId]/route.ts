@@ -17,11 +17,14 @@ export async function GET(
   const { placeId } = await params
 
   // Check Supabase cache first (7-day TTL per Req 21.2)
-  const { data: cached } = await supabase
+  const { data: cachedRaw } = await supabase
     .from('restaurants')
     .select('*')
     .eq('place_id', placeId)
     .single()
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cached = cachedRaw as any
 
   if (cached) {
     const lastSynced = new Date(cached.last_synced_at).getTime()
