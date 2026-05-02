@@ -83,7 +83,8 @@ export async function GET(
     // Upsert into Supabase (deduplication by place_id per Req 20.2-20.4)
     const { data: upserted, error } = await supabase
       .from('restaurants')
-      .upsert(restaurantData, { onConflict: 'place_id' })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .upsert(restaurantData as any, { onConflict: 'place_id' })
       .select()
       .single()
 
