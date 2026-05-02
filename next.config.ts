@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: '/Users/Scott-Personal/Documents/Kiro/nextbite/app',
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '*.supabase.co' },
@@ -9,6 +8,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: '*.googleapis.com' },
       { protocol: 'https', hostname: '*.yelp.com' },
       { protocol: 'https', hostname: 's3-media*.fl.yelpcdn.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
   async headers() {
