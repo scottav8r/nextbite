@@ -31,7 +31,7 @@ export default function HomePage() {
         .order('visit_date', { ascending: false })
         .limit(1)
         .single()
-      return (data as Memory) ?? null
+      return (data as unknown as Memory) ?? null
     },
   })
 
