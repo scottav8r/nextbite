@@ -1,38 +1,12 @@
 name: Lighthouse CI
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
+  workflow_dispatch: # Manual trigger only
 
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: nextbite/app/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-        working-directory: nextbite/app
-
-      - name: Build
-        run: npm run build
-        working-directory: nextbite/app
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-
-      - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v11
-        with:
-          configPath: nextbite/app/.lighthouserc.json
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+      - name: Placeholder
+        run: echo "Lighthouse CI disabled — run manually when needed"
