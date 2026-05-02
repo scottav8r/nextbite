@@ -1,0 +1,7 @@
+{
+  "/api/places/route": "app/api/places/route.js",
+  "/(app)/page": "app/(app)/page.js",
+  "/(app)/memories/new/page": "app/(app)/memories/new/page.js",
+  "/(app)/wishes/[id]/page": "app/(app)/wishes/[id]/page.js",
+  "/(app)/discover/page": "app/(app)/discover/page.js"
+}
